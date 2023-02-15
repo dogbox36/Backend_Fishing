@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv'
+dotenv.config();
+
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
@@ -21,7 +24,7 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('ejs');
-
-  await app.listen(3000);
+  // Ha nincs definiálva az env file akkr 3000-es porton fut 
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
