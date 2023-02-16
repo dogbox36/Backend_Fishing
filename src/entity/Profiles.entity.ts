@@ -25,6 +25,7 @@ export class Profiles {
 
   @Column({ unique: true })
   fishingid: number;
+  
   @OneToOne(() => Users, (users) => users.profile)
   @JoinColumn()
   users: Users;
