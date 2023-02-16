@@ -1,8 +1,10 @@
-import { isDefined } from "class-validator";
+import { isDefined, IsEmail, IsNotEmpty, isPhoneNumber } from 'class-validator';
 
 export default class newUserDTO {
-    username: string;
-    password: string;
-    email: string;
-    phone: number;
+  username: string;
+  @IsNotEmpty()
+  password: string;
+  @IsEmail()
+  email: string;
+  phone: number;
 }
