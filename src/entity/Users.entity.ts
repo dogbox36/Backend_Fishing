@@ -16,6 +16,7 @@ export class Users {
 
   @Column()
   phone: string;
+
   @OneToOne(() => Profiles, (profiles) => profiles.users)
   profile: Profiles;
 }

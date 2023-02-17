@@ -1,4 +1,4 @@
-import * as dotenv from 'dotenv'
+import * as dotenv from 'dotenv';
 dotenv.config();
 
 import { NestFactory } from '@nestjs/core';
@@ -24,7 +24,7 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('ejs');
-  // Ha nincs definiálva az env file akkr 3000-es porton fut 
+  // Ha nincs definiálva az env file akkr 3000-es porton fut
   await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
