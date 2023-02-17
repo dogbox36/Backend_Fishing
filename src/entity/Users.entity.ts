@@ -15,7 +15,7 @@ export class Users {
   email: string;
 
   @Column()
-  phone: number;
+  phone: string;
   @OneToOne(() => Profiles, (profiles) => profiles.users)
   profile: Profiles;
 }
