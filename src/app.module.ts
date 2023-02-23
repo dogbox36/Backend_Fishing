@@ -3,10 +3,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Catches } from './entity/Catches.entity';
-import { Profiles } from './entity/Profiles.entity';
+import { Profile } from 'src/profiles/entities/profile.entity';
 import { Spots } from './entity/Spots.entity';
-import { Users } from './entity/Users.entity';
+import { User } from 'src/users/entities/user.entity';
 import { UsersModule } from './users/users.module';
+import { ProfilesModule } from './profiles/profiles.module';
 
 @Module({
   imports: [
@@ -17,10 +18,11 @@ import { UsersModule } from './users/users.module';
       username: process.env.DB_USERNAME || 'root',
       password: process.env.DB_PASSWORD || '',
       database: process.env.DB_DATABASE || 'fishing',
-      entities: [Users, Profiles, Catches, Spots],
+      entities: [User, Profile, Catches, Spots],
       synchronize: true,
     }),
     UsersModule,
+    ProfilesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

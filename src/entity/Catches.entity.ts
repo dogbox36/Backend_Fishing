@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Profiles } from './Profiles.entity';
+//import { Profiles } from './Profiles.entity';
 
 @Entity()
 export class Catches {
@@ -21,6 +21,6 @@ export class Catches {
   @Column()
   size: number;
 
-  @ManyToOne(() => Profiles, (profile) => profile.catches)
-  profile: Profiles;
+ // @ManyToOne(() => Profiles, (profile) => profile.catches)
+  //profile: Profiles;
 }
