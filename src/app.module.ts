@@ -2,12 +2,14 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Catches } from './entity/Catches.entity';
+import { Catch } from 'src/catches/entities/catch.entity';
 import { Profile } from 'src/profiles/entities/profile.entity';
-import { Spots } from './entity/Spots.entity';
+import { Location } from 'src/locations/entities/location.entity';
 import { User } from 'src/users/entities/user.entity';
 import { UsersModule } from './users/users.module';
 import { ProfilesModule } from './profiles/profiles.module';
+import { CatchesModule } from './catches/catches.module';
+import { LocationsModule } from './locations/locations.module';
 
 @Module({
   imports: [
@@ -18,11 +20,13 @@ import { ProfilesModule } from './profiles/profiles.module';
       username: process.env.DB_USERNAME || 'root',
       password: process.env.DB_PASSWORD || '',
       database: process.env.DB_DATABASE || 'fishing',
-      entities: [User, Profile, Catches, Spots],
+      entities: [User, Profile, Catch, Location],
       synchronize: true,
     }),
     UsersModule,
     ProfilesModule,
+    CatchesModule,
+    LocationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
