@@ -6,6 +6,7 @@ import { Catches } from './entity/Catches.entity';
 import { Profiles } from './entity/Profiles.entity';
 import { Spots } from './entity/Spots.entity';
 import { Users } from './entity/Users.entity';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { Users } from './entity/Users.entity';
       entities: [Users, Profiles, Catches, Spots],
       synchronize: true,
     }),
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
