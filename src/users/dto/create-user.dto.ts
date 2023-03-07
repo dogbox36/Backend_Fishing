@@ -6,5 +6,6 @@ export class CreateUserDto {
   password: string;
   @IsEmail({})
   email: string;
-  phone: string;
+  phone?: string;
+  id: any;
 }

@@ -10,6 +10,10 @@ import { UsersModule } from './users/users.module';
 import { ProfilesModule } from './profiles/profiles.module';
 import { CatchesModule } from './catches/catches.module';
 import { LocationsModule } from './locations/locations.module';
+import Token from './users/auth/token.entity';
+import { AuthController } from './users/auth/auth.controller';
+import { AuthService } from './users/auth/auth.service';
+import TokenStrategy from './users/auth/token.strategy';
 
 @Module({
   imports: [
@@ -20,7 +24,7 @@ import { LocationsModule } from './locations/locations.module';
       username: process.env.DB_USERNAME || 'root',
       password: process.env.DB_PASSWORD || '',
       database: process.env.DB_DATABASE || 'fishing',
-      entities: [User, Profile, Catch, Location],
+      entities: [User, Profile, Catch, Location, Token],
       synchronize: true,
     }),
     UsersModule,
@@ -28,7 +32,7 @@ import { LocationsModule } from './locations/locations.module';
     CatchesModule,
     LocationsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, AuthController],
+  providers: [AppService, AuthService, TokenStrategy],
 })
 export class AppModule {}
