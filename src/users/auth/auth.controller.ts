@@ -20,13 +20,19 @@ export class AuthController {
       where: { username: loginData.username },
     });
 
+    if (!user) {
+      throw new UnauthorizedException('Invalid username or password');
+    }
+
     const passwordMatches = await bcrypt.compare(
       loginData.password,
       user.password,
     );
-    if (!user && !passwordMatches) {
+    
+    if (!passwordMatches) {
       throw new UnauthorizedException('Invalid username or password');
     }
+
     const token = await this.authService.generateTokenFor(user);
     return { token };
   }
