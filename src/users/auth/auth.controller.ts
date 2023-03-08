@@ -1,10 +1,11 @@
-import { Body, Controller, Post, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Delete, Post, Req, UnauthorizedException } from '@nestjs/common';
 import { User } from 'src/users/entities/user.entity';
 import { DataSource } from 'typeorm';
 import LoginDto from './login.dto';
 import * as bcrypt from 'bcrypt';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { Request } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -12,7 +13,7 @@ export class AuthController {
     private dataSource: DataSource,
     private authService: AuthService,
   ) {}
-
+// login username jelszó ellenőrzés
   @Post('login')
   async login(@Body() loginData: LoginDto) {
     const usersRepo = this.dataSource.getRepository(User);
@@ -37,6 +38,13 @@ export class AuthController {
     return { token };
   }
   // logoutnál: törli a token-t
+  @Delete('logout')
+  async logout(@Req() req: Request) {
+    const token = req.headers.authorization.split(' ')[1]; // Token kinyerése a fejlécből
+    await this.authService.deleteTokenFor(token);
+  }
+  
+  //felhasználó regisztráció
   @Post('users')
   async postUsers(@Body() usersdto: CreateUserDto) {
     usersdto.id = undefined;

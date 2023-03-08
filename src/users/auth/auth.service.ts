@@ -32,4 +32,9 @@ export class AuthService {
 
     return tokenString;
   }
+  //token törlés
+  async deleteTokenFor(token: string) {
+    const tokenRepo = this.dataSource.getRepository(Token);
+    await tokenRepo.delete({ token });
+  }
 }
