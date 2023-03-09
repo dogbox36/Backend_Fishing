@@ -18,17 +18,18 @@ import { User } from './entities/user.entity';
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
+  /*AUTH CONTROLLERBEN VESSZÜK FEL A USERT ÉS OTT VALIDÁLJUK
+  http://localhost:3000/auth/users
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
-
+*/
   @Get()
   findAll() {
     return this.usersService.findAll();
   }
-
+// id alapján keres
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(+id);

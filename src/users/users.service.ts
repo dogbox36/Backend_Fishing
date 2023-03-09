@@ -16,12 +16,14 @@ export class UsersService {
     });
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll() {
+    const repo = this.datasource.getRepository(User);
+    return await repo;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: number): Promise<User> {
+    const repo = this.datasource.getRepository(User);
+    return repo.findOne({where: {id: id}});
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
