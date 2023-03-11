@@ -8,38 +8,40 @@ import { FileInterceptor } from '@nestjs/platform-express';
 export class LocationsController {
   constructor(private readonly locationsService: LocationsService) {}
 
-  
-  @Post('image')
-  @UseInterceptors(FileInterceptor('image'))
-  async uploadImage(@UploadedFile() file, @Body() userDto: CreateLocationDto): Promise<Location> {
-    const { originalname, buffer } = file;
-    const user = await this.locationsService.create({
-      ...userDto,
-      image: buffer.toString('base64'),
-    });
-    return location;
-  }
 
+  //működik http://localhost:3000/locations
   @Post()
   create(@Body() createLocationDto: CreateLocationDto) {
     return this.locationsService.create(createLocationDto);
   }
 
+    //image feltoltese NINCS TESZTELVE
+    @Post('image')
+    @UseInterceptors(FileInterceptor('image'))
+    async uploadImage(@UploadedFile() file, @Body() locationDto: CreateLocationDto): Promise<Location> {
+      const { originalname, buffer } = file;
+      const user = await this.locationsService.create({
+        ...locationDto,
+        image: buffer.toString('base64'),
+      });
+      return location;
+    }
+    //müködik
   @Get()
   findAll() {
     return this.locationsService.findAll();
   }
-
+  //müködik
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.locationsService.findOne(+id);
   }
-
+  //halásztol meg kell kérdezni az update dto hogy mukszik
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateLocationDto: UpdateLocationDto) {
     return this.locationsService.update(+id, updateLocationDto);
   }
-
+  //müködik
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.locationsService.remove(+id);
