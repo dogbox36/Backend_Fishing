@@ -8,6 +8,7 @@ export default class Token {
 
   @ManyToOne(() => User)
   users: User;
-
-  // Lejárati dátum
+  //Márk: @CreateDateColumn()
+ // createdAt:Date;
+  // Dominik: Lejárati dátum
 }
