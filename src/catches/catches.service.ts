@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/users/entities/user.entity';
+import { User } from '../users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateCatchDto } from './dto/create-catch.dto';
 import { UpdateCatchDto } from './dto/update-catch.dto';
@@ -10,10 +10,13 @@ import { Catch } from './entities/catch.entity';
 export class CatchesService {
   constructor(
     @InjectRepository(Catch) private catchRepository: Repository<Catch>,
+    @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
-  async create(createCatchDto: CreateCatchDto) {
-    const newCatch = this.catchRepository.create(createCatchDto);
-    return await this.catchRepository.save(newCatch);
+  async create(createCatchDto: CreateCatchDto, userId: number) {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+ // get user by userId
+    const newCatch = this.catchRepository.create({ ...createCatchDto, user }); // create new catch with user object
+    return await this.catchRepository.save(newCatch); // save to database
   }
 
   async findUserByCatch(catchId: number): Promise<User> {

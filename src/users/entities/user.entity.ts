@@ -31,7 +31,8 @@ export class User {
 
   @OneToMany(() => Location, (location) => location.user)
   locations: Location[];
-
-  @OneToMany(() => Catch, (catches) => catches.user)
+  
+  @OneToMany(() => Catch, (catchObj) => catchObj.user)
   catches: Catch[];
+
 }

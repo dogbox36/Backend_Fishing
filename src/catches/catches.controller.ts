@@ -6,18 +6,22 @@ import {
   Patch,
   Param,
   Delete,
+  Req,
 } from '@nestjs/common';
 import { CatchesService } from './catches.service';
 import { CreateCatchDto } from './dto/create-catch.dto';
 import { UpdateCatchDto } from './dto/update-catch.dto';
+import { Request } from 'express';
+import { User } from '../users/entities/user.entity'; // added
 
 @Controller('catches')
 export class CatchesController {
   constructor(private readonly catchesService: CatchesService) {}
 
   @Post('add')
-  async create(@Body() createCatchDto: CreateCatchDto) {
-    return await this.catchesService.create(createCatchDto);
+  async create(@Body() createCatchDto: CreateCatchDto, @Req() req: Request & { user?: User }) {
+    const userId = req.user?.id; // get logged in user's id
+    return await this.catchesService.create(createCatchDto, userId); // pass userId to service method
   }
 
   @Get('info')
