@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { CatchesService } from './catches.service';
 import { CreateCatchDto } from './dto/create-catch.dto';
 import { UpdateCatchDto } from './dto/update-catch.dto';
@@ -7,12 +15,12 @@ import { UpdateCatchDto } from './dto/update-catch.dto';
 export class CatchesController {
   constructor(private readonly catchesService: CatchesService) {}
 
-  @Post()
-  create(@Body() createCatchDto: CreateCatchDto) {
-    return this.catchesService.create(createCatchDto);
+  @Post('add')
+  async create(@Body() createCatchDto: CreateCatchDto) {
+    return await this.catchesService.create(createCatchDto);
   }
 
-  @Get()
+  @Get('info')
   findAll() {
     return this.catchesService.findAll();
   }

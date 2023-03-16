@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Catch } from 'src/catches/entities/catch.entity';
-import { Profile } from 'src/profiles/entities/profile.entity';
-import { Location } from 'src/locations/entities/location.entity';
-import { User } from 'src/users/entities/user.entity';
+import { Catch } from './catches/entities/catch.entity';
+import { Profile } from './profiles/entities/profile.entity';
+import { Location } from './locations/entities/location.entity';
+import { User } from './users/entities/user.entity';
 import { UsersModule } from './users/users.module';
 import { ProfilesModule } from './profiles/profiles.module';
 import { CatchesModule } from './catches/catches.module';
@@ -14,6 +14,8 @@ import Token from './users/auth/token.entity';
 import { AuthController } from './users/auth/auth.controller';
 import { AuthService } from './users/auth/auth.service';
 import TokenStrategy from './users/auth/token.strategy';
+import { CatchesController } from './catches/catches.controller';
+import { CatchesService } from './catches/catches.service';
 
 @Module({
   imports: [

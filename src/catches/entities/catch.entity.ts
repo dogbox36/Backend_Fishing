@@ -1,24 +1,19 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Catch {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    xFcord: number;
+  @Column()
+  species: string;
 
-    @Column()
-    yFcord: number;
+  @Column({ type: 'float' })
+  weight: number;
 
-    @Column()
-    fishspecies: string;
+  @Column({ type: 'float' })
+  length: number;
 
-    @Column()
-    weight: number;
-
-    @Column()
-    size: number;
-
-
+  @Column()
+  location: string;
 }
