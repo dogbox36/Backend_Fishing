@@ -14,6 +14,7 @@ import * as bcrypt from 'bcrypt';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { Request } from 'express';
+import Token from './token.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -49,6 +50,12 @@ export class AuthController {
   @Delete('logout')
   async logout(@Req() req: Request) {
     const token = req.headers.authorization.split(' ')[1]; // Token kinyerése a fejlécből
+    await this.authService.deleteTokenFor(token);
+  }
+
+  @Delete('logout/android')
+  async logoutAndroid(@Body() tokenUser: Token) {
+    const token = tokenUser.token;
     await this.authService.deleteTokenFor(token);
   }
 

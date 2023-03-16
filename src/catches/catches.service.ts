@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateCatchDto } from './dto/create-catch.dto';
 import { UpdateCatchDto } from './dto/update-catch.dto';
@@ -15,6 +16,16 @@ export class CatchesService {
     return await this.catchRepository.save(newCatch);
   }
 
+  async findUserByCatch(catchId: number): Promise<User> {
+    const catchObj = await this.catchRepository.findOne({
+      where: { id: catchId },
+      relations: ['user'],
+    });
+    if (!catchObj) {
+      return null;
+    }
+    return catchObj.user;
+  }
   async findAll() {
     return await this.catchRepository.find();
   }

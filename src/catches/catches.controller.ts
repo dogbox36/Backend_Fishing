@@ -25,6 +25,10 @@ export class CatchesController {
     return this.catchesService.findAll();
   }
 
+  @Get(':id/user')
+  async findUserByCatch(@Param('id') id: string) {
+    return await this.catchesService.findUserByCatch(+id);
+  }
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.catchesService.findOne(+id);

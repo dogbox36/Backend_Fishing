@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/users/entities/user.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Catch {
@@ -16,4 +17,7 @@ export class Catch {
 
   @Column()
   location: string;
+
+  @ManyToOne(() => User, (user) => user.catches)
+  user: User;
 }

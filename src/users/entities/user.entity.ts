@@ -1,6 +1,13 @@
 import { Location } from 'src/locations/entities/location.entity';
 import { Profile } from 'src/profiles/entities/profile.entity';
-import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Catch } from 'src/catches/entities/catch.entity';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class User {
@@ -21,8 +28,10 @@ export class User {
 
   @OneToOne(() => Profile, (profiles) => profiles.user)
   profile: Profile;
-  
-  @OneToMany(() => Location, location => location.user)
+
+  @OneToMany(() => Location, (location) => location.user)
   locations: Location[];
 
+  @OneToMany(() => Catch, (catches) => catches.user)
+  catches: Catch[];
 }
