@@ -1,27 +1,33 @@
-import { User } from "src/users/entities/user.entity";
-import { Column, CreateDateColumn, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { User } from 'src/users/entities/user.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Location {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    xLoccord: number;
+  @Column({ type: 'decimal', precision: 10, scale: 6 })
+  xLoccord: number;
 
-    @Column()
-    yLoccord: number;
+  @Column({ type: 'decimal', precision: 10, scale: 6 })
+  yLoccord: number;
 
-    @Column()
-    comment: string;
+  @Column()
+  comment: string;
 
-    @Column({type: 'text', nullable:true})
-    image:string;
-    
-    @CreateDateColumn()
-    createdAt:Date;
+  @Column({ type: 'text', nullable: true })
+  image: string;
 
-    @ManyToOne(()=> User, user => user.locations)
-    user: User;
-    
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @ManyToOne(() => User, (user) => user.locations)
+  user: User;
 }

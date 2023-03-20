@@ -19,7 +19,10 @@ export class CatchesController {
   constructor(private readonly catchesService: CatchesService) {}
 
   @Post('add')
-  async create(@Body() createCatchDto: CreateCatchDto, @Req() req: Request & { user?: User }) {
+  async create(
+    @Body() createCatchDto: CreateCatchDto,
+    @Req() req: Request & { user?: User },
+  ) {
     const userId = req.user?.id; // get logged in user's id
     return await this.catchesService.create(createCatchDto, userId); // pass userId to service method
   }
