@@ -16,6 +16,8 @@ import { AuthService } from './users/auth/auth.service';
 import TokenStrategy from './users/auth/token.strategy';
 import { CatchesController } from './catches/catches.controller';
 import { CatchesService } from './catches/catches.service';
+import { CalendarModule } from './calendar/calendar.module';
+import { Calendar } from './calendar/entities/calendar.entity';
 
 @Module({
   imports: [
@@ -26,13 +28,14 @@ import { CatchesService } from './catches/catches.service';
       username: process.env.DB_USERNAME || 'root',
       password: process.env.DB_PASSWORD || '',
       database: process.env.DB_DATABASE || 'fishing',
-      entities: [User, Profile, Catch, Location, Token],
+      entities: [User, Profile, Catch, Location, Token, Calendar],
       synchronize: true,
     }),
     UsersModule,
     ProfilesModule,
     CatchesModule,
     LocationsModule,
+    CalendarModule,
   ],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService, TokenStrategy],
