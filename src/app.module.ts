@@ -18,6 +18,8 @@ import { CatchesController } from './catches/catches.controller';
 import { CatchesService } from './catches/catches.service';
 import { CalendarModule } from './calendar/calendar.module';
 import { Calendar } from './calendar/entities/calendar.entity';
+import { ImagesModule } from './images/images.module';
+import { Image } from './images/entities/images.entity';
 
 @Module({
   imports: [
@@ -28,7 +30,7 @@ import { Calendar } from './calendar/entities/calendar.entity';
       username: process.env.DB_USERNAME || 'root',
       password: process.env.DB_PASSWORD || '',
       database: process.env.DB_DATABASE || 'fishing',
-      entities: [User, Profile, Catch, Location, Token, Calendar],
+      entities: [User, Profile, Catch, Location, Token, Calendar, Image],
       synchronize: true,
     }),
     UsersModule,
@@ -36,6 +38,7 @@ import { Calendar } from './calendar/entities/calendar.entity';
     CatchesModule,
     LocationsModule,
     CalendarModule,
+    ImagesModule,
   ],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService, TokenStrategy],
