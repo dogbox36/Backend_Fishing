@@ -1,6 +1,6 @@
-import { User } from 'src/users/entities/user.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+import {Fishing} from  'src/fishing/entities/fishing.entity'
 @Entity()
 export class Catch {
   @PrimaryGeneratedColumn()
@@ -18,7 +18,6 @@ export class Catch {
   @Column()
   location: string;
 
-  @ManyToOne(() => User, (user) => user.catches)
-  @JoinColumn()
-  user: User;
+  @ManyToOne(() => Fishing, (fishing) => fishing.catches)
+  fishing: Fishing;
 }

@@ -17,7 +17,7 @@ import { User } from '../users/entities/user.entity'; // added
 @Controller('catches')
 export class CatchesController {
   constructor(private readonly catchesService: CatchesService) {}
-
+/*
   @Post('add')
   async create(
     @Body() createCatchDto: CreateCatchDto,
@@ -26,16 +26,16 @@ export class CatchesController {
     const userId = req.user?.id; // get logged in user's id
     return await this.catchesService.create(createCatchDto, userId); // pass userId to service method
   }
-
+*/
   @Get('info')
   findAll() {
     return this.catchesService.findAll();
   }
-
+/*
   @Get(':id/user')
   async findUserByCatch(@Param('id') id: string) {
     return await this.catchesService.findUserByCatch(+id);
-  }
+  }*/
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.catchesService.findOne(+id);

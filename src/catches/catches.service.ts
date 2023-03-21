@@ -12,13 +12,14 @@ export class CatchesService {
     @InjectRepository(Catch) private catchRepository: Repository<Catch>,
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
+  /*
   async create(createCatchDto: CreateCatchDto, userId: number) {
     const user = await this.userRepository.findOne({ where: { id: userId } });
  // get user by userId
     const newCatch = this.catchRepository.create({ ...createCatchDto, user }); // create new catch with user object
     return await this.catchRepository.save(newCatch); // save to database
   }
-
+/*
   async findUserByCatch(catchId: number): Promise<User> {
     const catchObj = await this.catchRepository.findOne({
       where: { id: catchId },
@@ -28,7 +29,7 @@ export class CatchesService {
       return null;
     }
     return catchObj.user;
-  }
+  }*/
   async findAll() {
     return await this.catchRepository.find();
   }

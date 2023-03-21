@@ -20,6 +20,9 @@ import { CalendarModule } from './calendar/calendar.module';
 import { Calendar } from './calendar/entities/calendar.entity';
 import { ImagesModule } from './images/images.module';
 import { Image } from './images/entities/images.entity';
+import { Fishing } from './fishing/entities/fishing.entity';
+import { FishingModule } from './fishing/fishing.module';
+
 
 @Module({
   imports: [
@@ -30,7 +33,7 @@ import { Image } from './images/entities/images.entity';
       username: process.env.DB_USERNAME || 'root',
       password: process.env.DB_PASSWORD || '',
       database: process.env.DB_DATABASE || 'fishing',
-      entities: [User, Profile, Catch, Location, Token, Calendar, Image],
+      entities: [User, Profile, Catch, Location, Token, Calendar, Image, Fishing],
       synchronize: true,
     }),
     UsersModule,
@@ -39,6 +42,7 @@ import { Image } from './images/entities/images.entity';
     LocationsModule,
     CalendarModule,
     ImagesModule,
+    FishingModule,
   ],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService, TokenStrategy],

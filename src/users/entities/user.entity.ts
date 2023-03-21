@@ -1,6 +1,6 @@
 import { Location } from 'src/locations/entities/location.entity';
 import { Profile } from 'src/profiles/entities/profile.entity';
-import { Catch } from 'src/catches/entities/catch.entity';
+import { Fishing } from 'src/fishing/entities/fishing.entity';
 import {
   Column,
   Entity,
@@ -32,7 +32,8 @@ export class User {
   @OneToMany(() => Location, (location) => location.user)
   locations: Location[];
   
-  @OneToMany(() => Catch, (catchObj) => catchObj.user)
-  catches: Catch[];
+  @OneToMany(() => Fishing, (fishing) => fishing.user)
+  fishing: Fishing[];
+
 
 }
