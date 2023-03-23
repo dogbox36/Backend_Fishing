@@ -5,16 +5,13 @@ import {Catch} from 'src/catches/entities/catch.entity'
 @Entity()
 export class Fishing {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: Number;
 
   @Column()
-  title: string;
+  title: String;
 
   @Column()
   startingOfFishing: Date;
-
-  @Column()
-  endingOfFishing: Date;
 
   @Column()
   piecesOfTheFishes: number;

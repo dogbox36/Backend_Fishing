@@ -1,5 +1,6 @@
 export class CreateFishingDto {
   title: string;
-  start: Date;
-  end: Date;
+  startOfFishing: Date;
+  sumWeight: number;
+  piecesOfTheFishes: number;
 }
