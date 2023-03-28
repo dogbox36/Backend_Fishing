@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -28,6 +29,7 @@ export class Location {
   @CreateDateColumn()
   createdAt: Date;
 
-  @ManyToOne(() => User, (user) => user.locations)
+  @ManyToOne(() => User, (user) => user.catches)
+  @JoinColumn()
   user: User;
 }

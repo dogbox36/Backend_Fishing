@@ -1,38 +1,55 @@
 import { Injectable } from '@nestjs/common';
-import { DataSource } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from '../users/entities/user.entity';
+import { Repository } from 'typeorm';
 import { CreateLocationDto } from './dto/create-location.dto';
 import { UpdateLocationDto } from './dto/update-location.dto';
 import { Location } from './entities/location.entity';
 
 @Injectable()
 export class LocationsService {
-  constructor(private readonly datasource: DataSource) {}
+  constructor(
+    @InjectRepository(Location)
+    private locationRepository: Repository<Location>,
+    @InjectRepository(User) private userRepository: Repository<User>,
+  ) {}
 
-  async create(createLocationDto: CreateLocationDto) {
-    const repo = this.datasource.getRepository(Location);
-    return await repo.save({
+  async create(
+    createLocationDto: CreateLocationDto,
+    userId: number,
+  ): Promise<Location> {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+    const newLocation = this.locationRepository.create({
       ...createLocationDto,
+      user,
     });
+    return await this.locationRepository.save(newLocation);
   }
 
   async findAll(): Promise<Location[]> {
-    const repo = this.datasource.getRepository(Location);
-    return await repo.find();
+    return await this.locationRepository.find();
   }
 
-  async findOne(id: number): Promise<Location> {
-    const repo = this.datasource.getRepository(Location);
-    return await repo.findOne({ where: { id } });
+  async findOne(id: number): Promise<Location | undefined> {
+    return await this.locationRepository.findOne({ where: { id } });
   }
 
-  update(id: number, updateLocationDto: UpdateLocationDto) {
-    return `This action updates a #${id} location`;
+  async update(
+    id: number,
+    updateLocationDto: UpdateLocationDto,
+    userId: number,
+  ): Promise<void> {
+    const location = await this.locationRepository.findOneOrFail({
+      where: { id, user: { id: userId } },
+    });
+    await this.locationRepository.update(location, updateLocationDto);
   }
 
-  async remove(id: number): Promise<Location> {
-    const repo = this.datasource.getRepository(Location);
-    const locationToDelete = await repo.findOneOrFail({ where: { id } });
-    await repo.remove(locationToDelete);
+  async remove(id: number, userId: number): Promise<Location> {
+    const locationToDelete = await this.locationRepository.findOneOrFail({
+      where: { id: id },
+    });
+    await this.locationRepository.remove(locationToDelete);
     return locationToDelete;
   }
 }
