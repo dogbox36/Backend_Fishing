@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateCalendarDto } from './dto/create-calendar.dto';
 import { UpdateCalendarDto } from './dto/update-calendar.dto';
@@ -10,13 +11,19 @@ export class CalendarService {
   constructor(
     @InjectRepository(Calendar)
     private readonly calendarRepository: Repository<Calendar>,
+    @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  async create(createCalendarDto: CreateCalendarDto): Promise<Calendar> {
+  async create(
+    createCalendarDto: CreateCalendarDto,
+    userId: number,
+  ): Promise<Calendar> {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
     const calendar = new Calendar();
     calendar.title = createCalendarDto.title;
     calendar.start = createCalendarDto.start;
     calendar.end = createCalendarDto.end;
+    calendar.user = user; // set the user to the calendar entity
     return await this.calendarRepository.save(calendar);
   }
 

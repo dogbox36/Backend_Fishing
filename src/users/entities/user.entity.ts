@@ -8,6 +8,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Calendar } from 'src/calendar/entities/calendar.entity';
 
 @Entity()
 export class User {
@@ -31,8 +32,10 @@ export class User {
 
   @OneToMany(() => Location, (location) => location.user)
   locations: Location[];
-  
+
   @OneToMany(() => Catch, (catchObj) => catchObj.user)
   catches: Catch[];
 
+  @OneToMany(() => Calendar, (calendar) => calendar.user)
+  calendar: Catch[];
 }
