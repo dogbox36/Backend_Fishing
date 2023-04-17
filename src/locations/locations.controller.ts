@@ -51,14 +51,15 @@ export class LocationsController {
   //   return location;
   // }
 
-  @Get()
-  findAll() {
-    return this.locationsService.findAll();
+  @Get('info')
+  async findUserLocations(@Req() req: Request & { user?: { id: number } }) {
+    const userId = req.user?.id; // get logged in user's id
+    return await this.locationsService.findUserLocations(userId); // pass userId to service method
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.locationsService.findOne(+id);
+    return this.locationsService.findOneById(+id);
   }
 
   @Patch(':id')

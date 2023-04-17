@@ -26,11 +26,16 @@ export class LocationsService {
     return await this.locationRepository.save(newLocation);
   }
 
+  async findUserLocations(userId: number) {
+    return await this.locationRepository.find({
+      where: { user: { id: userId } },
+    });
+  }
   async findAll(): Promise<Location[]> {
     return await this.locationRepository.find();
   }
 
-  async findOne(id: number): Promise<Location | undefined> {
+  async findOneById(id: number): Promise<Location> {
     return await this.locationRepository.findOne({ where: { id } });
   }
 
