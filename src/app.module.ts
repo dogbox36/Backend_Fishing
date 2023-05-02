@@ -2,10 +2,24 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Catches } from './entity/Catches.entity';
-import { Profiles } from './entity/Profiles.entity';
-import { Spots } from './entity/Spots.entity';
-import { Users } from './entity/Users.entity';
+import { Catch } from './catches/entities/catch.entity';
+import { Profile } from './profiles/entities/profile.entity';
+import { Location } from './locations/entities/location.entity';
+import { User } from './users/entities/user.entity';
+import { UsersModule } from './users/users.module';
+import { ProfilesModule } from './profiles/profiles.module';
+import { CatchesModule } from './catches/catches.module';
+import { LocationsModule } from './locations/locations.module';
+import Token from './users/auth/token.entity';
+import { AuthController } from './users/auth/auth.controller';
+import { AuthService } from './users/auth/auth.service';
+import TokenStrategy from './users/auth/token.strategy';
+import { CatchesController } from './catches/catches.controller';
+import { CatchesService } from './catches/catches.service';
+import { CalendarModule } from './calendar/calendar.module';
+import { Calendar } from './calendar/entities/calendar.entity';
+import { ImagesModule } from './images/images.module';
+import { Image } from './images/entities/images.entity';
 
 @Module({
   imports: [
@@ -16,11 +30,17 @@ import { Users } from './entity/Users.entity';
       username: process.env.DB_USERNAME || 'root',
       password: process.env.DB_PASSWORD || '',
       database: process.env.DB_DATABASE || 'fishing',
-      entities: [Users, Profiles, Catches, Spots],
+      entities: [User, Profile, Catch, Location, Token, Calendar, Image],
       synchronize: true,
     }),
+    UsersModule,
+    ProfilesModule,
+    CatchesModule,
+    LocationsModule,
+    CalendarModule,
+    ImagesModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, AuthController],
+  providers: [AppService, AuthService, TokenStrategy],
 })
 export class AppModule {}
